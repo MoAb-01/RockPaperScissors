@@ -2,7 +2,6 @@
 #include <cstdlib>
 using namespace std;
 
-
 int GetRandom(int from, int to) {
 	return from + rand() % (to - from + 1);
 }
@@ -20,6 +19,7 @@ int ReadNumberInRange(string mssg,int from,int to)
 
 int InGameRounds()
 {
+	
 	int roundsNo = ReadNumberInRange("How many rounds from 1 to 10? ",1,10);
 	return roundsNo;
 }
@@ -29,7 +29,9 @@ enum enRoundWinState{User=1,Computer=2,NoWinner=3};
 
 enGameChoice ReadChoice (int number)
 {
+	
 	return enGameChoice(number);
+
 }
 
 string ChoiceToString(enGameChoice Choice)
@@ -60,16 +62,26 @@ void PrintRoundResult(int RoundNumber, enRoundWinState Winstate, enGameChoice Us
 	cout << "Computer choice: " << ChoiceToString(ComputerChoice)<<endl;
 	cout << "Round Winner: " << enRoundWinStateToString(Winstate)<<endl;
 	cout<< "\n________________________________________________\n";
-}
 
+}
+						
 string FinalWinner(int UserWinCount, int ComputerWinCount,int DrawCount)
 {
-	if (UserWinCount > ComputerWinCount) 
+	if (UserWinCount == DrawCount)
+		return "User";
+	else if (ComputerWinCount == DrawCount)
+		return "Computer";
+
+	if (UserWinCount > ComputerWinCount)
 	{
 		if (UserWinCount > DrawCount)
 		{
 			return "User";
 		}
+		return "Draw";
+	}
+	else if (UserWinCount == ComputerWinCount)
+	{
 		return "Draw";
 	}
 	else
@@ -78,7 +90,7 @@ string FinalWinner(int UserWinCount, int ComputerWinCount,int DrawCount)
 			return "Computer";
 		else
 			return "No Winner";
-	}	
+	}
 }
 
 void GameOver(int NumberOfRounds, int UserWinCount, int ComputerWinCount, int DrawCount, string FinalWinner)
@@ -167,7 +179,6 @@ void ResetScreen()
 	system("color 07");
 
 }
-
 void StartGame()
 {
 	int counter = 0;
@@ -179,7 +190,7 @@ void StartGame()
 		if (Number == 1)
 			ResetScreen();
 		else
-			break;
+			break;		
 	}
 }
 
